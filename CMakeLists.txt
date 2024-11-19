@@ -10,12 +10,19 @@ pico_sdk_init()
 
 link_directories(libmicroros)
 add_executable(pico_micro_ros_example
-    pico_micro_ros_example.c
+    src/pico_micro_ros_example.c
+    src/driver_motor.h
+    src/driver_motor.c
+    src/mpu9250.h
+    src/mpu9250.c
     pico_uart_transport.c
 )
 target_link_libraries(pico_micro_ros_example
     pico_stdlib
     microros
+    hardware_pwm
+    hardware_spi
+    hardware_timer
 )
 
 target_include_directories(pico_micro_ros_example PUBLIC
