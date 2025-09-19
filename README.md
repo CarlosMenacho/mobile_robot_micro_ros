@@ -35,9 +35,10 @@ source ~/.bashrc
 
 ### 2. Compile Example
 
-Once the Pico SDK is ready, compile the example:
+Once the Pico SDK is ready, clone this repository and compile the example:
 
 ```bash
+git clone -b humble https://github.com/micro-ROS/micro_ros_raspberrypi_pico_sdk
 cd micro_ros_raspberrypi_pico_sdk
 mkdir build
 cd build
@@ -55,6 +56,16 @@ Micro-ROS follows the client-server architecture, so you need to start the Micro
 You can do so using the [micro-ros-agent Docker](https://hub.docker.com/r/microros/micro-ros-agent):
 ```bash
 docker run -it --rm -v /dev:/dev --privileged --net=host microros/micro-ros-agent:humble serial --dev /dev/ttyACM0 -b 115200
+```
+
+### Using UART serial communication
+
+To use the UART serial protocol instead of USB (for example, to use micro-ROS in combination with a Raspberry Pi Debug Probe), it is enough to update the `# Configure Pico` section in the `CMakeLists.txt` file as follows:
+
+```
+# Configure Pico
+pico_enable_stdio_usb(pico_micro_ros_example 0)
+pico_enable_stdio_uart(pico_micro_ros_example 1)
 ```
 
 ## What files are relevant?
